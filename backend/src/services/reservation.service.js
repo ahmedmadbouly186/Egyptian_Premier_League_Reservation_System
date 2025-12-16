@@ -2,7 +2,7 @@ const { User } = require("../entities/user");
 const { Reservation } = require("../entities/reservation");
 const { Match } = require("../entities/match");
 const { Team } = require("../entities/team");
-const { Stadium } = require("../entities/Stadium");
+const { Stadium } = require("../entities/stadium");
 const reserveTicketService = async (data) => {
   const { matchId, userId, seat_row, seat_column, card_number, PIN } = data;
   if (

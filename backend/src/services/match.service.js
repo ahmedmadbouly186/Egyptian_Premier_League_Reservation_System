@@ -1,6 +1,6 @@
 const { Match } = require("../entities/match");
 const { Team } = require("../entities/team");
-const { Stadium } = require("../entities/Stadium");
+const { Stadium } = require("../entities/stadium");
 const { Reservation } = require("../entities/reservation");
 const { Op } = require("sequelize");
 

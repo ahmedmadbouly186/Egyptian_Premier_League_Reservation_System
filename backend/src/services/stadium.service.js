@@ -1,18 +1,10 @@
-const { Stadium } = require("../entities/Stadium");
+const { Stadium } = require("../entities/stadium");
 
 const createStadiumService = async (data) => {
-  const {
-    name,
-    dimension1,
-    dimension2
-  } = data;
+  const { name, dimension1, dimension2 } = data;
 
   //   validate that each field is not empty
-  if (
-    !name ||
-    !dimension1 ||
-    !dimension2
-  ) {
+  if (!name || !dimension1 || !dimension2) {
     throw {
       status: 400,
       message: "All fields are required",
@@ -32,7 +24,7 @@ const createStadiumService = async (data) => {
   const create_stadium = await Stadium.create({
     name,
     dimension1,
-    dimension2
+    dimension2,
   });
   return {
     status: 201,
@@ -44,12 +36,7 @@ const createStadiumService = async (data) => {
 };
 
 const updateStadiumService = async (data) => {
-  const {
-    id,
-    name,
-    dimension1,
-    dimension2
-  } = data;
+  const { id, name, dimension1, dimension2 } = data;
 
   //   validate that each field is not empty
   if (name || dimension1 || dimension2) {
@@ -67,14 +54,14 @@ const updateStadiumService = async (data) => {
       message: "invalid stadium id",
     };
   }
-  
-  if(!name){
+
+  if (!name) {
     name = stadium.name;
   }
-  if(!dimension1){
+  if (!dimension1) {
     dimension1 = stadium.dimension1;
   }
-  if(!dimension2){
+  if (!dimension2) {
     dimension2 = stadium.dimension2;
   }
 
@@ -83,15 +70,15 @@ const updateStadiumService = async (data) => {
     {
       name,
       dimension1,
-      dimension2
+      dimension2,
     },
     {
       where: {
-        id
+        id,
       },
     }
   );
-  
+
   const updated_stadium = await Stadium.findOne({ where: { id: id } });
   console.log(updated_stadium);
   return {
@@ -113,9 +100,7 @@ const getStadiumService = async (data) => {
   }
   const stadium = await Stadium.findOne({
     where: { id },
-    include: [
-      { model: Stadium, as: "name" }
-    ],
+    include: [{ model: Stadium, as: "name" }],
   });
 
   if (!stadium) {
@@ -129,78 +114,73 @@ const getStadiumService = async (data) => {
   return {
     status: 200,
     response: {
-        stadium: stadium_data,
+      stadium: stadium_data,
     },
   };
 };
 
 const getAllStadiumsService = async (data) => {
-    const stadiums = await Stadium.findAll({
-        attributes: ["id", "name", "dimension1", "dimension2"]
-      });
-      
-      for (let i = 0; i < stadiums.length; i++) {
-        stadiums[i] = stadiums[i].dataValues;
-      }
+  const stadiums = await Stadium.findAll({
+    attributes: ["id", "name", "dimension1", "dimension2"],
+  });
 
-      return {
-        status: 200,
-        response: {
-            stadium: stadiums,
-        },
-      };
+  for (let i = 0; i < stadiums.length; i++) {
+    stadiums[i] = stadiums[i].dataValues;
+  }
+
+  return {
+    status: 200,
+    response: {
+      stadium: stadiums,
+    },
+  };
 };
 
 const deleteStadiumService = async (data) => {
-    const {
-      id,
-      name
-    } = data;
-  
-    //   validate that id is not empty
-    if (!id) {
-      throw {
-        status: 400,
-        message: "stadium id is required",
-      };
-    }
-  
-    //   validate that the team id is found
-    const stadium = await Stadium.findOne({ where: { id: id } });
-    if (!stadium) {
-      throw {
-        status: 400,
-        message: "invalid stadium id",
-      };
-    }
-  
-  
-    //   delete the team
-    await Stadium.destroy(
-      {
-        name
-      },
-      {
-        where: {
-          id
-        },
-      }
-    );
-  
-    console.log("deleted stadium successfully");
-    return {
-      status: 200,
-      response: {
-        message: "stadium deleted successfully"
-      },
-    };
-  };
+  const { id, name } = data;
 
+  //   validate that id is not empty
+  if (!id) {
+    throw {
+      status: 400,
+      message: "stadium id is required",
+    };
+  }
+
+  //   validate that the team id is found
+  const stadium = await Stadium.findOne({ where: { id: id } });
+  if (!stadium) {
+    throw {
+      status: 400,
+      message: "invalid stadium id",
+    };
+  }
+
+  //   delete the team
+  await Stadium.destroy(
+    {
+      name,
+    },
+    {
+      where: {
+        id,
+      },
+    }
+  );
+
+  console.log("deleted stadium successfully");
+  return {
+    status: 200,
+    response: {
+      message: "stadium deleted successfully",
+    },
+  };
+};
 
 module.exports = {
   createStadiumService,
   updateStadiumService,
   getStadiumService,
   getAllStadiumsService,
-  deleteStadiumService
+  deleteStadiumService,
 };

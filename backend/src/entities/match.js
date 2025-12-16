@@ -1,7 +1,7 @@
 const { DataTypes } = require("sequelize");
 const { db } = require("../database");
 const { Team } = require("./team");
-const { Stadium } = require("./Stadium");
+const { Stadium } = require("./stadium");
 const Match = db.define(
   "Match",
   {

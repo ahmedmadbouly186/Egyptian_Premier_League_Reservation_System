@@ -1,3 +1,24 @@
+# BUILD & start using docker
+
+docker compose build
+docker compose up
+
+# CHECK every thing is OK
+
+Health check – confirms backend is running:
+
+http://localhost:3005/health
+
+Swagger / API documentation – interactive API docs for all routes:
+
+http://localhost:3005/docs
+
+Frontend (Flutter Web)
+
+You exposed frontend on Docker port 3000:
+
+http://localhost:3000
+
 # DB design
 
 we will use postgress

@@ -17,7 +17,7 @@ const swaggerSpec = swaggerJSDoc(options);
 // require all entities files here, just to create tables in database
 require("./entities/admin");
 require("./entities/team");
-require("./entities/Stadium");
+require("./entities/stadium");
 require("./entities/user");
 require("./entities/match");
 require("./entities/reservation");
