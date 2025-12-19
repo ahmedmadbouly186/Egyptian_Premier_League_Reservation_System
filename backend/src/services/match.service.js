@@ -127,7 +127,6 @@ const createMatchService = async (data) => {
 };
 
 const updateMatchService = async (data) => {
-  console.log(data);
   // return;
   const {
     id,
@@ -220,7 +219,6 @@ const updateMatchService = async (data) => {
     }
   );
   const updated_match = await Match.findOne({ where: { id: id } });
-  console.log(updated_match);
   return {
     status: 200,
     response: {

@@ -54,7 +54,6 @@ class HomeScreen extends StatelessWidget {
                           Navigator.pushNamed(context, route);
                         } else {
                           // Handle the case where the route is null.
-                          print('Route for $name is not defined.');
                         }
                       },
                     );

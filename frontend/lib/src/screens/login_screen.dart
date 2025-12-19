@@ -27,14 +27,6 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  Future<void> handel_login_admin(BuildContext context) async {
-    bool response =
-        await login({'username': username, 'password': password}, context);
-    if (response) {
-      Navigator.pushNamed(context, '/accept_users');
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,8 +85,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       if (_formKey.currentState!.validate()) {
                         // Form is valid, you can perform login logic here.
                         // Access the username and password using the variables you declared earlier.
-                        // print('Username: $username');
-                        // print('Password: $password');
 
                         // TODO
                         // send username and password to api , in file controller / authentication.dart

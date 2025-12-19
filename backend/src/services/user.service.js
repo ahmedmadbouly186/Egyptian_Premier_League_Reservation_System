@@ -42,7 +42,6 @@ const loginService = async (data) => {
 };
 
 const registerService = async (data) => {
-  console.log(data);
   const {
     role,
     email,
@@ -107,7 +106,6 @@ const registerService = async (data) => {
 };
 
 const updateUserService = async (data) => {
-  console.log(data);
   const user = await User.update(data, { where: { userId: data.userId } });
   return {
     status: 200,

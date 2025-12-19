@@ -47,23 +47,16 @@ class App {
     this.app.use("/reservation", reservationRouter);
   }
   listen() {
-    this.app.listen(this.port, () => {
-      console.log("=================================");
-      console.log(`🚀 App is listening on the port: ${this.port}`);
-      console.log("=================================");
-    });
+    this.app.listen(this.port, () => {});
   }
   getServer() {
     return this.app;
   }
   async connectToDatabase() {
     try {
-      await db.sync({ sync: true });
-      console.log("Connection has been established successfully.");
-    } catch (error) {
-      console.error("error", error);
-      console.error(`Can't establish connection with the database!`);
-    }
+      await db.authenticate();
+      await db.sync({ alter: true });
+    } catch (error) {}
   }
   appStatus() {
     this.app.get("/health", (req, res) => {

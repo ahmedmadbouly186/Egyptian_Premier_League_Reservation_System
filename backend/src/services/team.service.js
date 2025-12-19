@@ -1,14 +1,10 @@
 const { Team } = require("../entities/team");
 
 const createTeamService = async (data) => {
-  const {
-    name
-  } = data;
+  const { name } = data;
 
   //   validate that each field is not empty
-  if (
-    !name
-  ) {
+  if (!name) {
     throw {
       status: 400,
       message: "All fields are required",
@@ -27,7 +23,7 @@ const createTeamService = async (data) => {
 
   // create a team
   const create_team = await Team.create({
-    name
+    name,
   });
   return {
     status: 201,
@@ -39,10 +35,7 @@ const createTeamService = async (data) => {
 };
 
 const updateTeamService = async (data) => {
-  const {
-    id,
-    name
-  } = data;
+  const { id, name } = data;
 
   //   validate that each field is not empty
   if (!id) {
@@ -61,21 +54,19 @@ const updateTeamService = async (data) => {
     };
   }
 
-
   //   update the team
   await Team.update(
     {
-      name
+      name,
     },
     {
       where: {
-        id
+        id,
       },
     }
   );
 
   const updated_team = await Team.findOne({ where: { id: id } });
-  console.log(updated_team);
   return {
     status: 200,
     response: {
@@ -95,9 +86,7 @@ const getTeamService = async (data) => {
   }
   const team = await Team.findOne({
     where: { id },
-    include: [
-      { model: Team, as: "name" }
-    ],
+    include: [{ model: Team, as: "name" }],
   });
 
   if (!team) {
@@ -117,72 +106,66 @@ const getTeamService = async (data) => {
 };
 
 const getAllTeamsService = async (data) => {
-    const teams = await Team.findAll({
-        attributes: ["id", "name"]
-      });
-      
-      for (let i = 0; i < teams.length; i++) {
-        teams[i] = teams[i].dataValues;
-      }
+  const teams = await Team.findAll({
+    attributes: ["id", "name"],
+  });
 
-      return {
-        status: 200,
-        response: {
-          team: teams,
-        },
-      };
+  for (let i = 0; i < teams.length; i++) {
+    teams[i] = teams[i].dataValues;
+  }
+
+  return {
+    status: 200,
+    response: {
+      team: teams,
+    },
+  };
 };
 
 const deleteTeamService = async (data) => {
-    const {
-      id,
-      name
-    } = data;
-  
-    //   validate that id is not empty
-    if (!id) {
-      throw {
-        status: 400,
-        message: "team id is required",
-      };
-    }
-  
-    //   validate that the team id is found
-    const team = await Team.findOne({ where: { id: id } });
-    if (!team) {
-      throw {
-        status: 400,
-        message: "invalid team id",
-      };
-    }
-  
-  
-    //   delete the team
-    await Team.destroy(
-      {
-        name
-      },
-      {
-        where: {
-          id
-        },
-      }
-    );
-  
-    console.log("deleted team successfully");
-    return {
-      status: 200,
-      response: {
-        message: "team deleted successfully"
-      },
-    };
-  };
+  const { id, name } = data;
 
+  //   validate that id is not empty
+  if (!id) {
+    throw {
+      status: 400,
+      message: "team id is required",
+    };
+  }
+
+  //   validate that the team id is found
+  const team = await Team.findOne({ where: { id: id } });
+  if (!team) {
+    throw {
+      status: 400,
+      message: "invalid team id",
+    };
+  }
+
+  //   delete the team
+  await Team.destroy(
+    {
+      name,
+    },
+    {
+      where: {
+        id,
+      },
+    }
+  );
+
+  return {
+    status: 200,
+    response: {
+      message: "team deleted successfully",
+    },
+  };
+};
 
 module.exports = {
   createTeamService,
   updateTeamService,
   getTeamService,
   getAllTeamsService,
-  deleteTeamService
+  deleteTeamService,
 };

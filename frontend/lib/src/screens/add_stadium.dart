@@ -41,17 +41,12 @@ class _AddStadiumScreenState extends State<AddStadiumScreen> {
 
       if (response.statusCode == 201) {
         final jsonData = json.decode(response.body);
-        print(jsonData);
         setState(() {
-          print('tmam');
           // navigate
         });
         Navigator.pushNamed(context, '/home');
       } else {
         setState(() {
-          print('msh mam');
-          print(json.decode(response.body));
-
           // show the error dialog
           showDialog(
             context: context,
@@ -77,7 +72,6 @@ class _AddStadiumScreenState extends State<AddStadiumScreen> {
       }
     } catch (e) {
       setState(() {
-        print('shit');
         // data = "Error occurred: $e";
       });
     }

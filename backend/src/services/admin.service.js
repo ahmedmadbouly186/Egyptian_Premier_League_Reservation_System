@@ -59,7 +59,6 @@ const deleteUserService = async (data) => {
       username,
     },
   });
-  console.log("user deleted successfully");
   return {
     status: 200,
     response: {

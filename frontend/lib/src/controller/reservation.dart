@@ -16,18 +16,15 @@ const url = cons.url;
 
 Future<void> reserved_ticket(
     Map<String, Object> data, BuildContext context) async {
-  print('hello');
   // load the token from the local storage and send it in the header
   SharedPreferences.getInstance().then((prefs) {
     String token = prefs.getString('token') ?? "";
-    print(token);
     http.post(Uri.parse('$url/reservation'), body: json.encode(data), headers: {
       'Content-type': 'application/json',
       'Accept': 'application/json',
       'token': token
     }).then((response) {
       if (response.statusCode == 200) {
-        print(response.body);
         // show success message
         showDialog(
           context: context,

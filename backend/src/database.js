@@ -13,7 +13,7 @@ const db = new Sequelize({
   username: DB_USER,
   password: DB_PASSWORD,
   database: DB_DATABASE,
-  logging: false,
+  logging: true,
   // dialectOptions: {
   //   ssl: {
   //     require: true, // This is a security feature to ensure that the connection is encrypted.

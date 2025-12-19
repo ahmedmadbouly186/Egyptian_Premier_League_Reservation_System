@@ -75,7 +75,6 @@ const cancelreservationService = async (data) => {
     },
   });
   const matchId = reserv.dataValues["matchId"];
-  console.log(matchId);
   const match = await Match.findOne({
     where: {
       id: matchId,

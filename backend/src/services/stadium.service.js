@@ -80,7 +80,6 @@ const updateStadiumService = async (data) => {
   );
 
   const updated_stadium = await Stadium.findOne({ where: { id: id } });
-  console.log(updated_stadium);
   return {
     status: 200,
     response: {
@@ -168,7 +167,6 @@ const deleteStadiumService = async (data) => {
     }
   );
 
-  console.log("deleted stadium successfully");
   return {
     status: 200,
     response: {

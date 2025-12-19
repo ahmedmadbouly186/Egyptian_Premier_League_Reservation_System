@@ -15,7 +15,6 @@ const url = cons.url;
 
 Future<bool> login(Map<String, String> query, BuildContext context,
     {admin = false}) async {
-  print(query);
   final Response response = await http
       .post(Uri.parse('$url/user/login'), body: json.encode(query), headers: {
     'Content-type': 'application/json',
@@ -66,7 +65,6 @@ Future<bool> signUp(Map<String, String> query, BuildContext context) async {
     'Content-type': 'application/json',
     'Accept': 'application/json',
   });
-  print(response.statusCode);
   if (response.statusCode == 201) {
     String token = json.decode(response.body)['token'];
     User user = User.fromJson(json.decode(response.body)['user']);

@@ -43,7 +43,6 @@ class _AddMatchesScreenState extends State<AddMatchesScreen> {
                 "${picked.toLocal()}".split(' ')[0].toString().split('-')[2] +
                 "-" +
                 "${picked.toLocal()}".split(' ')[0].toString().split('-')[0];
-        print(matchDate);
       });
     }
   }
@@ -71,15 +70,7 @@ class _AddMatchesScreenState extends State<AddMatchesScreen> {
   Future<void> handel_add_match(BuildContext context) async {
     var prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
-    print(token);
-    print(selectedHomeTeam['id']);
-    print(selectedAwayTeam['id']);
-    print(selectedReferee);
-    print(linesman1);
-    print(linesman2);
-    print(birthdayController.text);
-    print(selectedTime);
-    print(venue['id']);
+
     try {
       final response = await http.post(Uri.parse('$url/match'),
           headers: {
@@ -101,17 +92,12 @@ class _AddMatchesScreenState extends State<AddMatchesScreen> {
 
       if (response.statusCode == 201) {
         final jsonData = json.decode(response.body);
-        print(jsonData);
         setState(() {
-          print('tmam');
           // navigate
         });
         Navigator.pushNamed(context, '/upcoming_matches');
       } else {
         setState(() {
-          print('msh mam');
-          print(json.decode(response.body));
-
           // show the error dialog
           showDialog(
             context: context,
@@ -137,7 +123,6 @@ class _AddMatchesScreenState extends State<AddMatchesScreen> {
       }
     } catch (e) {
       setState(() {
-        print('shit');
         // data = "Error occurred: $e";
       });
     }
@@ -153,7 +138,6 @@ class _AddMatchesScreenState extends State<AddMatchesScreen> {
   Future<void> _getTeams() async {
     var prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
-    print(token);
     try {
       final response = await http.get(Uri.parse('$url/team/all'), headers: {
         'Content-type': 'application/json',
@@ -163,10 +147,8 @@ class _AddMatchesScreenState extends State<AddMatchesScreen> {
 
       if (response.statusCode == 200) {
         final jsonData = json.decode(response.body);
-        print(jsonData);
         setState(() {
           teams = jsonData['team']; //r Change according to your JSON structure
-          // print(teams);
         });
       } else {
         setState(() {
@@ -183,7 +165,6 @@ class _AddMatchesScreenState extends State<AddMatchesScreen> {
   Future<void> _getVenues() async {
     var prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
-    print(token);
     try {
       final response = await http.get(Uri.parse('$url/stadium/all'), headers: {
         'Content-type': 'application/json',
@@ -193,7 +174,6 @@ class _AddMatchesScreenState extends State<AddMatchesScreen> {
 
       if (response.statusCode == 200) {
         final jsonData = json.decode(response.body);
-        print(jsonData);
         setState(() {
           venues =
               jsonData['stadium']; // Change according to your JSON structure
@@ -346,8 +326,6 @@ class _AddMatchesScreenState extends State<AddMatchesScreen> {
                       //     return 'Please select the date';
                       //   }
                       //   matchDate = value;
-                      //   print('DAAAAAAAATE');
-                      //   print(value);
                       //   return null;
                       // },
                     ),

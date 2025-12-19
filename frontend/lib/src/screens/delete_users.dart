@@ -25,18 +25,13 @@ class _DeleteUsersScreenState extends State<DeleteUsersScreen> {
   Future<void> _fetchData() async {
     var prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
-    // print(token);
-    // print('$baseUrl/user/all');
-    // print(token);
     var headers = {'Content-type': 'application/json', 'token': '$token'};
-    // print(headers);
     try {
       final response =
           await http.get(Uri.parse('$baseUrl/user/all'), headers: headers);
 
       if (response.statusCode == 200) {
         final jsonData = json.decode(response.body);
-        // print(jsonData);
         setState(() {
           users = jsonData['users'];
           // _fetchData();
@@ -44,12 +39,10 @@ class _DeleteUsersScreenState extends State<DeleteUsersScreen> {
         });
       } else {
         setState(() {
-          print(response.statusCode);
           // data = "Failed to load data!";
         });
       }
     } catch (e) {
-      print(e);
       setState(() {
         // data = "Error occurred: $e";
       });
@@ -60,7 +53,6 @@ class _DeleteUsersScreenState extends State<DeleteUsersScreen> {
   Future<void> handel_accept_user(BuildContext context, user) async {
     var prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('token');
-    // print(user);
     var headers = {
       'Content-type': 'application/json',
       'token': '$token',
@@ -73,7 +65,6 @@ class _DeleteUsersScreenState extends State<DeleteUsersScreen> {
           body: json.encode({'username': user['username']}));
       if (response.statusCode == 200) {
         final jsonData = json.decode(response.body);
-        print(jsonData);
 
         setState(() {
           _fetchData();
@@ -100,13 +91,10 @@ class _DeleteUsersScreenState extends State<DeleteUsersScreen> {
         );
       } else {
         setState(() {
-          print(response.statusCode);
-          print(response.body);
           // data = "Failed to load data!";
         });
       }
     } catch (e) {
-      print(e);
       setState(() {
         // data = "Error occurred: $e";
       });

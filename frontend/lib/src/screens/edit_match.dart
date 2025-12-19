@@ -67,7 +67,6 @@ class _EditMatchScreenState extends State<EditMatchScreen> {
         final jsonData = json.decode(response.body);
         setState(() {
           teams = jsonData['team']; //r Change according to your JSON structure
-          // print(teams);
         });
       } else {
         setState(() {
